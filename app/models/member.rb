@@ -16,7 +16,7 @@ class Member < ApplicationRecord
   protected
 
   def set_campaign_pending
-    self.campaign.update(status: :peding)
+    self.campaign.update(status: :pending)
   end
 
 end

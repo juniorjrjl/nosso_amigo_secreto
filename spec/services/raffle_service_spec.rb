@@ -3,7 +3,7 @@ require 'rails_helper'
 describe RaffleService do
     
     before :each do
-        @campaign = create(:campaign, status: peding)
+        @campaign = create(:campaign, status: :pending)
     end
 
     describe "#call" do
@@ -20,21 +20,21 @@ describe RaffleService do
             end
 
             it "result is hash" do
-                expect(@result.class).to eq(Hash)
+                expect(@results.class).to eq(Hash)
             end
 
             it "all members are in result as a member" do
-                result_members = @result.map {|r| r.first}
+                result_members = @results.map {|r| r.first}
                 expect(result_members.sort).to eq(@campaign.members.sort)
             end
 
             it "all members are in result as a friend " do
-                result_friends = @result.map {|r| r.last}
+                result_friends = @results.map {|r| r.last}
                 expect(result_friends.sort).to eq(@campaign.members.sort)
             end
 
             it "a member don't get yourself" do
-                @result.each do |r|
+                @results.each do |r|
                     expect(r.first).not_to eq(r.last)
                 end
             end

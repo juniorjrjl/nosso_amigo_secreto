@@ -1,4 +1,4 @@
-FROM ruby:2.7.1-slim
+FROM ruby:2.5.1-slim
 
 #instala depencias
 RUN apt update && apt install -qq -y --no-install-recommends \
