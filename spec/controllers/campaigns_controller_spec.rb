@@ -59,13 +59,13 @@ RSpec.describe CampaignsController, type: :controller do
 
         it "Redirect to new campaign" do
             expect(response).to have_http_status(:found)
-            expect(response).to redirect_to("campaign/#{Campaign.last.id}")
+            expect(response).to redirect_to("campaigns/#{Campaign.last.id}")
         end
 
         it "Create campaign with right attributes" do
             expect(Campaign.last.user).to eql(@current_user)
-            expect(Campaign.last.title).to eql(@campaign_attributes[:title])
-            expect(Campaign.last.description).to eql(@campaign_attributes[:description])
+            expect(Campaign.last.title).to eql('Nova Campanha')
+            expect(Campaign.last.description).to eql('Descreva sua campanha...')
             expect(Campaign.last.status).to eql('pending')
         end
 
@@ -92,7 +92,7 @@ RSpec.describe CampaignsController, type: :controller do
         context "User isn't the Campaign Owner" do
             it "return http fobidden" do
                 campaign = create(:campaign)
-                delete :destroy, params(id: campaign.id)
+                delete :destroy, params: { id: campaign.id }
                 expect(response).to have_http_status(:forbidden)
             end
         end
@@ -151,7 +151,7 @@ RSpec.describe CampaignsController, type: :controller do
                     create(:member, campaign: @campaign)
                     create(:member, campaign: @campaign)
                     create(:member, campaign: @campaign)
-                    post :raffle, params: {id: campaign.id}
+                    post :raffle, params: {id: @campaign.id}
                 end
 
                 it "returns http success" do
@@ -164,7 +164,7 @@ RSpec.describe CampaignsController, type: :controller do
                 
                 before(:each) do
                     create(:member, campaign: @campaign)
-                    post :raffle, params: {id: campaign.id}
+                    post :raffle, params: { id: @campaign.id }
                 end
 
                 it "returns http success" do
