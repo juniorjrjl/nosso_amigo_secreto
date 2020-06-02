@@ -16,7 +16,7 @@ class CampaignsController < ApplicationController
     
     respond_to do |format|
       if @campaign.save
-        format.html { redirect_to "campaigns/#{@campaign.id}" }
+        format.html { redirect_to action: :show, id: @campaign.id }
       else
         format.html { redirect_to main_app.root_url, notice: @campaign.errors }
       end
@@ -37,7 +37,7 @@ class CampaignsController < ApplicationController
     @campaign.destroy 
 
     respond_to do |format|
-      format.json{ render json: true }
+      format.json{ render json: true}
     end
   end
 
@@ -61,7 +61,7 @@ class CampaignsController < ApplicationController
   end
 
   def campaign_params
-    params.require(:campaign).permit(:title, :description, :event_date, :event_hour, :location).merge(user: current_user)
+    params.require(:campaign).permit(:title, :description, :event_date, :event_hour, :locale).merge(user: current_user)
   end
 
   def is_owner?
