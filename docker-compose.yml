@@ -26,6 +26,12 @@ services:
         command: bash start_jobs
         volumes: 
             - '.:/nosso_amigo_secreto'
+            - 'box:/box'
+        environment: 
+            - BUNDLE_PATH=/box 
+            - DB_HOST=postgres
+            - DB_USER=postgres
+            - DB_PASS=postgres
 
     website:
         depends_on: 

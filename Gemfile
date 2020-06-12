@@ -35,6 +35,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'inky-rb', require: 'inky'
+gem 'premailer-rails'
 gem 'devise'
 gem 'materialize-sass', '~> 0.100.2'
 gem 'material_icons'
