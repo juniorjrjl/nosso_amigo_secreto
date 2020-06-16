@@ -2,6 +2,13 @@ $(document).on 'turbolinks:load', ->
   $('.update_campaign input').bind 'blur', ->
     $('.update_campaign').submit()
 
+  $('.modal').modal();
+  modal = new Materialize.Modal($("#mdlExcluir"))
+
+  $('.show_modal').on 'click', (e) -> modal.open()
+    
+  $('.hide_modal').on 'click', (e) -> modal.close()
+
   $('.update_campaign').on 'submit', (e) ->
     $.ajax e.target.action,
         type: 'PUT'

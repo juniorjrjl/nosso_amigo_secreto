@@ -13,6 +13,7 @@ class MembersController < ApplicationController
         format.json { render json: @member }
       else
         format.json { render json: @member.errors, status: :unprocessable_entity }
+
       end
     end
   end
@@ -52,6 +53,7 @@ class MembersController < ApplicationController
   end
 
   def member_params
+    p params
     params.require(:member).permit(:name, :email, :campaign_id)
   end
 

@@ -2,24 +2,24 @@ require 'rails_helper'
 
 RSpec.describe "Members", type: :request do
 
-  describe "GET /create" do
+  describe "POST /create" do
     it "returns http success" do
-      get "/members/create"
-      expect(response).to have_http_status(:success)
+      post "/members"
+      expect(response).to have_http_status(:found)
     end
   end
 
-  describe "GET /destroy" do
+  describe "DELETE /destroy" do
     it "returns http success" do
-      get "/members/destroy"
-      expect(response).to have_http_status(:success)
+      delete "/members/destroy"
+      expect(response).to have_http_status(:found)
     end
   end
 
-  describe "GET /update" do
+  describe "PUT /update" do
     it "returns http success" do
-      get "/members/update"
-      expect(response).to have_http_status(:success)
+      put "/members/update"
+      expect(response).to have_http_status(:found)
     end
   end
 

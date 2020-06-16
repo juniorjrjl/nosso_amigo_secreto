@@ -33,6 +33,38 @@ $(document).on 'turbolinks:load', ->
           Materialize.toast('Problema na hora de incluir membro', 4000, 'red')
     return false
 
+  $('input[id^="email_"], input[id^="name_"]').keypress (e) ->
+    member_id = get_member_id(e.target.id)
+    if e.which == 13 && valid_email($( "#email_#{member_id}" ).val()) && $( "#name_#{member_id}" ).val() != ""
+      update_member(parseInt(member_id))
+
+  $('input[id^="email_"], input[id^="name_"]').bind 'blur', (e)->
+    member_id = get_member_id(e.target.id)
+    if valid_email($( "#email_#{member_id}" ).val()) && $( "#name_#{member_id}" ).val() != ""
+      update_member(parseInt(member_id))
+
+get_member_id = (input_id) -> input_id.substring(input_id.indexOf('_') + 1)
+
+update_member = (id) ->
+  member =  build_update_member_json($( "#name_#{id}").val(), 
+    $( "#email_#{id}").val(), 
+    parseInt($("#campaign_id_#{id}").val()))
+  $.ajax "/members/#{id}",
+      type: 'PUT'
+      dataType: 'json',
+      data: member
+      success: (data, text, jqXHR) ->
+        Materialize.toast('Membro atualizado', 4000, 'green')
+      error: (jqXHR, textStatus, errorThrown) ->
+        Materialize.toast('Problema na hora de atualizar membro', 4000, 'red')
+  return false
+
+build_update_member_json = (name, email, campaign_id) ->
+  member: {
+    name: name,
+    email: email,
+    campaign_id: campaign_id
+  }
 
 valid_email = (email) ->
   /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(email)
@@ -42,11 +74,11 @@ insert_member = (id, name, email) ->
     '<div class="member" id="member_' + id + '">' +
       '<div class="row">' +
         '<div class="col s12 m5 input-field">' +
-          '<input id="name" type="text" class="validate" value="' + name + '">' +
+          '<input id="name_' + id + '" type="text" class="validate" value="' + name + '">' +
           '<label for="name" class="active">Nome</label>' +
         '</div>' +
         '<div class="col s12 m5 input-field">' +
-          '<input id="email" type="email" class="validate" value="' + email + '">' +
+          '<input id="email_' + id + '" type="email" class="validate" value="' + email + '">' +
           '<label for="email" class="active" data-error="Formato incorreto">Email</label>' +
         '</div>' +
         '<div class="col s3 offset-s3 m1 input-field">' +
