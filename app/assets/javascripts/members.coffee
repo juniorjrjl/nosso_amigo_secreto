@@ -80,6 +80,7 @@ insert_member = (id, name, email) ->
         '<div class="col s12 m5 input-field">' +
           '<input id="email_' + id + '" type="email" class="validate" value="' + email + '">' +
           '<label for="email" class="active" data-error="Formato incorreto">Email</label>' +
+          '<input type="hidden" id="campaign_id_' + id + '" name="campaign_id_' + id + '" value="' + id + '">' + 
         '</div>' +
         '<div class="col s3 offset-s3 m1 input-field">' +
           '<i class="material-icons icon">visibility</i>' +

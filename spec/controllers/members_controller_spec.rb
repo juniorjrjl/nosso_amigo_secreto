@@ -73,7 +73,9 @@ RSpec.describe MembersController, type: :controller do
         before(:each) do
             @member = create(:member, campaign: @campaign)
             @member.set_pixel
+            headers = { "ACCEPT" => "*/*" }
             get :opened, params: {token: @member.token}, format: :text
+            #corrigir chamada desse teste
         end
 
         it "member opened e-mail" do

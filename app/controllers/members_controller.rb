@@ -53,7 +53,6 @@ class MembersController < ApplicationController
   end
 
   def member_params
-    p params
     params.require(:member).permit(:name, :email, :campaign_id)
   end
 

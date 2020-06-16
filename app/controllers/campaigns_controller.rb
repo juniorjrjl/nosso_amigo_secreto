@@ -61,7 +61,6 @@ class CampaignsController < ApplicationController
   end
 
   def campaign_params
-    p params
     params.require(:campaign).permit(:title, :description, :event_date, :event_hour, :locale).merge(user: current_user)
   end
 
